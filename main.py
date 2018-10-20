@@ -1,21 +1,48 @@
+#Making a proper window of a normal Software
+
 from tkinter import *
 
+def doNothing():
+    print("Jeez! Alright I won't do anything.")
+
+def CopyFunction():
+    status.config(text="Copied")
+
+def PrintFunction():
+    status.config(text="Printed")
+
 root = Tk()
-topFrame = Frame(root)
-topFrame.pack()
+root.geometry("500x300")
+# Menu
+menubar = Menu(root)
+root.config(menu=menubar)
 
-bottomFrame = Frame(root)
-bottomFrame.pack(side=BOTTOM)
+subMenu = Menu(menubar, tearoff=0)
+menubar.add_cascade(label="File",menu=subMenu)
+subMenu.add_command(label="New Project", command=doNothing)
+subMenu.add_command(label="New", command=doNothing)
+subMenu.add_separator()
+subMenu.add_command(label="Exit", command=root.destroy)
 
-button1 = Button(topFrame, text="Button 1", fg="red")
-button2 = Button(topFrame, text="Button 2", fg="blue")
-button3 = Button(topFrame, text="Button 3", fg="green")
-button4 = Button(bottomFrame, text="Button 4", fg="purple")
+EditMenu = Menu(menubar, tearoff=0)
+menubar.add_cascade(label="Edit",menu=EditMenu)
+EditMenu.add_command(label="New", command=doNothing)
 
-button1.pack(side=LEFT)
-button2.pack(side=LEFT)
-button3.pack(side=LEFT)
-button4.pack(side=BOTTOM)
+
+#Toolbar
+
+toolbar = Frame(root,bg="blue")
+copybtn = Button(toolbar, text="Copy", command=CopyFunction)
+printbtn = Button(toolbar, text="Print", command=PrintFunction)
+
+copybtn.pack(side=LEFT, padx=2, pady=2)
+printbtn.pack(side=LEFT, padx=2, pady=2)
+toolbar.pack(side=TOP, fill=X)
+
+#StatusBar
+
+status = Label(root, text="Preparing the document...", bd=1, relief=SUNKEN, anchor=W) #relief makes it look like a statusbar
+status.pack(side=BOTTOM, fill=X)
+
 
 root.mainloop()
-
